@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DEV_SERENO — Acalu Sereno</title>
+
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            neonBlue: '#39FFFC',
+            neonPink: '#FF4D9E',
+            neonPurple: '#8A5CFF',
+            bgDark: '#05060a'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-bgDark text-slate-100 antialiased">
+  <!-- Header / Hero -->
+  <header class="min-h-screen flex flex-col items-center justify-center px-6 text-center relative overflow-hidden">
+    <div class="absolute inset-0 -z-10">
+      <div class="w-full h-full bg-gradient-to-br from-[#071022] via-[#06031a] to-[#0a0412] opacity-80"></div>
+    </div>
+
+    <div class="max-w-4xl w-full">
+      <div class="flex flex-col md:flex-row items-center gap-8">
+        <!-- Avatar -->
+        <div class="flex-shrink-0">
+          <div class="relative">
+            <img src="assets/avatar.jpg" alt="Acalu Sereno" loading="lazy"
+              class="w-40 h-40 rounded-full object-cover avatar border-4 border-transparent neon-ring">
+            <div class="absolute -inset-1 rounded-full blur-lg opacity-60 neon-glow"></div>
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="text-left">
+          <h1 class="font-orbitron text-4xl md:text-5xl text-neonBlue tracking-tight">Acalu Sereno</h1>
+          <p class="mt-2 text-neonPurple font-semibold">Desenvolvedor Python · Entusiasta de tecnologia</p>
+          <p class="mt-4 text-slate-300 max-w-xl">
+            Sou o Acalu Sereno, desenvolvedor em formação e apaixonado por tecnologia.
+            Atualmente curso Análise e Desenvolvimento de Sistemas pelo SENAC e venho criando projetos que envolvem
+            automação, APIs e análise de dados usando Python, SQL, C# e JavaScript.
+
+            Gosto de entender como as coisas funcionam por trás do código e transformar ideias em soluções que fazem
+            diferença.
+            Aprendo muito na prática, testando, errando e construindo — e estou sempre em busca de novas ferramentas e
+            desafios.
+          </p>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#projects" class="btn-primary">Ver projetos</a>
+            <a href="#contact" class="btn-ghost">Contato</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- quick skills -->
+      <div class="mt-10 flex flex-wrap gap-3 justify-center md:justify-start">
+        <span class="chip">Python</span>
+        <span class="chip">APIs</span>
+        <span class="chip">JavaScript</span>
+        <span class="chip">Docker</span>
+        <span class="chip">SQL</span>
+        <span class="chip">c</span>
+      </div>
+    </div>
+
+    <!-- scroll hint -->
+    <a href="#projects" class="absolute bottom-10 animate-bounce text-slate-300/80">Deslize para ver projetos ↓</a>
+  </header>
+
+  <!-- Projects -->
+  <section id="projects" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="font-orbitron text-3xl text-center text-neonPink">Projetos</h2>
+      <p class="text-center mt-2 text-slate-300 max-w-2xl mx-auto">Carrossel com projetos destacados — clique para
+        detalhes.</p>
+
+      <div class="relative mt-10">
+        <button id="prev" class="carousel-btn left-0">‹</button>
+        <div id="carousel" class="carousel overflow-hidden">
+          <div class="carousel-track flex gap-6">
+            <!-- Card 1 -->
+            <article class="project-card">
+              <h3 class="text-neonBlue font-semibold">API de Gerenciamento de Alunos</h3>
+              <p class="mt-2 text-slate-300 text-sm">Este é um sistema CRUD completo para cadastro, edição, exclusão e
+                gerenciamento de alunos e suas notas escolares, desenvolvido em Python com interface gráfica Tkinter e
+                banco de dados PostgreSQL.</p>
+              <p class="mt-3 text-xs text-slate-400">Tecnologias: Python, TKinter, PostgreSQL</p>
+              <div class="mt-4">
+                <a class="btn-outline" href="https://github.com/sereno766/BANCO_ESCOLA">Ver repositório</a>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="project-card">
+              <h3 class="text-neonBlue font-semibold">API de Milhas</h3>
+              <p class="mt-2 text-slate-300 text-sm">Esta API foi desenvolvida em Python (Flask) para gerenciar clientes
+                e seus saldos de milhas aéreas.</p>
+              <p class="mt-3 text-xs text-slate-400">Tecnologias: Python, Flask, mySQL</p>
+              <div class="mt-4">
+                <a class="btn-outline" href="https://github.com/sereno766/Api_millhas">Ver repositório</a>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="project-card">
+              <h3 class="text-neonBlue font-semibold">Desafios de Lógico 42</h3>
+              <p class="mt-2 text-slate-300 text-sm">estudos feitos durante a piscina da 42 onde recriei algumas funções
+                do C para praticar logica de programação</p>
+              <p class="mt-3 text-xs text-slate-400">Tecnologias: C</p>
+              <div class="mt-4">
+                <a class="btn-outline" href="https://github.com/sereno766/42-sp">Ver repositório</a>
+              </div>
+            </article>
+            <article class="project-card">
+              <h3 class="text-neonBlue font-semibold">Mais projetos em breve</h3>
+              <p class="mt-2 text-slate-300 text-sm">Em breve, mais códigos, ideias e experimentos por aqui.
+                Fique ligado, o próximo deploy vem aí! ⚡</p>
+              <p class="mt-3 text-xs text-slate-400">Tecnologias: </p>
+              <div class="mt-4">
+                <a class="btn-outline" href="https://github.com/sereno766">Ver repositórios</a>
+              </div>
+            </article>
+          </div>
+        </div>
+        <button id="next" class="carousel-btn right-0">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Footer -->
+  <footer id="contact" class="py-12 px-6 bg-[#04050a] border-t border-slate-800">
+    <div class="max-w-4xl mx-auto text-center">
+      <h3 class="font-orbitron text-2xl text-neonPurple">Contato</h3>
+      <p class="text-slate-300 mt-2">Vamos conversar — projetos, colaborações ou oportunidades.</p>
+
+      <div class="mt-6 flex items-center justify-center gap-6">
+        <!-- GitHub -->
+        <a class="social" href="https://github.com/sereno766" title="GitHub" aria-label="GitHub" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+            class="w-8 h-8 hover:text-neonBlue transition-colors duration-300">
+            <path
+              d="M12 0a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.3-1.2-1.7-1.2-1.7-1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1 .1.7-.3.8-.6.2-.9.6-1.3.9-1.5-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.5-2.8 5.4-5.4 5.7.5.4.9 1.1.9 2.3v3.4c0 .3.2.7.8.6A12 12 0 0 0 12 0z" />
+          </svg>
+        </a>
+
+        <!-- LinkedIn -->
+        <a class="social" href="https://www.linkedin.com/in/acalu-sereno-machado-438146237/" title="LinkedIn"
+          aria-label="LinkedIn" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+            class="w-8 h-8 hover:text-neonBlue transition-colors duration-300">
+            <path
+              d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM3 8.98h3.96V21H3zM9.48 8.98H13v1.63c.5-.92 1.76-1.9 3.62-1.9 3.88 0 4.6 2.55 4.6 5.87V21h-3.96v-5.02c0-1.2-.02-2.75-1.68-2.75-1.68 0-1.93 1.3-1.93 2.66V21H9.48z" />
+          </svg>
+        </a>
+
+        <!-- Email -->
+        <a class="social" href="mailto:acalusereno@hotmail.com" title="Email" aria-label="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+            class="w-8 h-8 hover:text-neonBlue transition-colors duration-300">
+            <path
+              d="M20 4H4c-1.1 0-2 .9-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    // simple carousel behavior
+    const track = document.querySelector('.carousel-track');
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+    const cards = document.querySelectorAll('.project-card');
+    let index = 0;
+
+    function updateCarousel() {
+      const cardWidth = cards[0].getBoundingClientRect().width + 24; // includes gap
+      track.style.transform = 'translateX(' + (-index * cardWidth) + 'px)';
+    }
+
+    prev.addEventListener('click', () => {
+      index = Math.max(0, index - 1);
+      updateCarousel();
+    });
+    next.addEventListener('click', () => {
+      index = Math.min(cards.length - 1, index + 1);
+      updateCarousel();
+    });
+
+    window.addEventListener('resize', updateCarousel);
+
+    // smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = a.getAttribute('href');
+        if (t.length > 1) {
+          e.preventDefault();
+          document.querySelector(t).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
