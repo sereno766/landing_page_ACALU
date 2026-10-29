@@ -204,6 +204,7 @@ h1, h2, h3 { font-weight: 400; text-wrap: balance; }
 /* Cada faixa é um carrossel: rola para os lados com o dedo, o trackpad,
    o arraste do mouse ou os botões. O link fica só no nome do projeto. */
 .strip__frames {
+  position: relative;
   display: flex;
   gap: 8px;
   overflow-x: auto;
@@ -410,8 +411,8 @@ h1, h2, h3 { font-weight: 400; text-wrap: balance; }
 
 /* ---------- Trajetória ---------- */
 
-/* No celular a imagem abre dentro da linha tocada (o main.js a move para lá);
-   a partir de 901px ela fica fixa na coluna da esquerda. */
+/* Só o clique troca a linha. No celular a imagem abre dentro da linha tocada
+   (o main.js a move para lá); a partir de 901px ela fica na coluna da esquerda. */
 .path { padding-top: 40px; padding-bottom: var(--section); }
 .path__picture { margin: 0; }
 .path__frame { position: relative; aspect-ratio: 4 / 3; overflow: clip; background: #232323; }
@@ -448,25 +449,14 @@ h1, h2, h3 { font-weight: 400; text-wrap: balance; }
 .row.is-active .row__icon::after { transform: rotate(0deg); }
 
 @media (min-width: 901px) {
-  .path__picture { grid-column: 1 / span 5; position: sticky; top: 12vh; align-self: start; }
-  .path__frame { aspect-ratio: 4 / 5; }
+  .path__picture { grid-column: 1 / span 5; align-self: start; }
+  .path__frame { aspect-ratio: 4 / 5; width: min(100%, 72svh * 0.8); }
   .path__picture figcaption { min-height: 2.8em; }
   .path__list { grid-column: 7 / span 5; margin-top: 0; }
   .path__list h2 { margin-bottom: 48px; }
   .row__head { min-height: 58px; }
 }
 
-/* Palco fixo: a partir de 901px (e com altura suficiente) a seção fica parada na tela
-   enquanto se rola, e a rolagem troca a linha e a imagem. O main.js liga a classe
-   is-pinned e define --steps; sem script fica o layout normal, com clique. */
-@media (min-width: 901px) and (min-height: 640px) {
-  .path.is-pinned { height: calc(100svh + var(--steps, 7) * 42svh); padding-block: 0; }
-  .path.is-pinned .path__stage { position: sticky; top: 0; height: 100svh; align-items: center; align-content: center; }
-  .path.is-pinned .path__picture { position: static; align-self: center; }
-  .path.is-pinned .path__frame { width: min(100%, 72svh * 0.8); }
-  .path.is-pinned .path__list h2 { margin-bottom: 32px; }
-  .path.is-pinned .row__head { min-height: 52px; padding-block: 11px; }
-}
 
 /* ---------- Contato ---------- */
 

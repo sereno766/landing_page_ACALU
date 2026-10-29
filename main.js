@@ -36,35 +36,33 @@ document.querySelectorAll('.strip').forEach((strip) => {
     prev.disabled = track.scrollLeft <= 2;
     next.disabled = track.scrollLeft >= max - 2;
   };
-  // Cada clique leva ao próximo cartão (ou ao anterior), com um deslize curto e suave.
-  // A rolagem nativa "smooth" pulava 80% da faixa de uma vez e brigava com o snap.
-  const starts = () => {
-    const base = track.getBoundingClientRect().left - track.scrollLeft;
-    return [...track.children].map((el) => el.getBoundingClientRect().left - base);
-  };
-  let anim = 0, aimed = null; // aimed: destino do deslize em andamento (cliques seguidos somam)
+  // Cada clique leva ao próximo cartão (ou ao anterior).
+  // A rolagem pula direto para o destino e os cartões deslizam da posição antiga até a nova
+  // com uma animação de transform, feita pela placa de vídeo: mais fluida que mexer no
+  // scrollLeft quadro a quadro, que dava trancos em alguns navegadores.
+  // offsetLeft ignora o transform do deslize em andamento (a faixa é position: relative)
+  const starts = () => [...track.children].map((el) => el.offsetLeft);
+  let anims = [];
+  const shiftNow = () => (anims.length ? new DOMMatrixReadOnly(getComputedStyle(track.firstElementChild).transform).m41 : 0);
+  const stopGlide = () => { anims.forEach((a) => a.cancel()); anims = []; track.style.scrollSnapType = ''; };
   const glideTo = (target) => {
     const max = track.scrollWidth - track.clientWidth;
     target = Math.min(Math.max(target, 0), max);
-    cancelAnimationFrame(anim);
-    aimed = target;
-    if (reduce) { track.scrollLeft = target; aimed = null; return; }
-    const from = track.scrollLeft, dist = target - from;
-    const duration = Math.min(680, 420 + Math.abs(dist) * 0.45);
-    const t0 = performance.now();
+    const from = track.scrollLeft, shift = shiftNow(); // shift: quanto do deslize anterior ainda falta
+    anims.forEach((a) => a.cancel()); anims = [];
     track.style.scrollSnapType = 'none';
-    const tick = (now) => {
-      const p = Math.min((now - t0) / duration, 1);
-      const eased = 0.5 - 0.5 * Math.cos(Math.PI * p); // ease-in-out senoidal: começa e assenta macio
-      track.scrollLeft = from + dist * eased;
-      if (p < 1) anim = requestAnimationFrame(tick);
-      else { track.style.scrollSnapType = ''; aimed = null; }
-    };
-    anim = requestAnimationFrame(tick);
+    track.scrollLeft = target;
+    const dist = track.scrollLeft - from + shift;
+    if (reduce || Math.abs(dist) < 1) { track.style.scrollSnapType = ''; return; }
+    const duration = Math.min(720, 480 + Math.abs(dist) * 0.35);
+    anims = [...track.children].map((el) => el.animate(
+      [{ transform: `translateX(${dist}px)` }, { transform: 'translateX(0)' }],
+      { duration, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' }, // começa macio e assenta devagar
+    ));
+    anims[0].finished.then(() => { anims = []; track.style.scrollSnapType = ''; }).catch(() => {});
   };
-  const stopGlide = () => { cancelAnimationFrame(anim); aimed = null; track.style.scrollSnapType = ''; };
   const step = (dir) => {
-    const x = aimed ?? track.scrollLeft, list = starts();
+    const x = track.scrollLeft, list = starts();
     const target = dir > 0
       ? list.find((s) => s > x + 4)
       : [...list].reverse().find((s) => s < x - 4);
@@ -238,44 +236,9 @@ function activate(row) {
   placeFigure();
 }
 
-// Palco fixo no desktop: a seção fica parada e a rolagem escolhe a linha.
-// O clique leva a rolagem até a posição daquela linha, então os dois nunca discordam.
-// Passar o mouse por cima não troca nada. No celular vale só o toque.
-const path = document.querySelector('.path');
-const pinQuery = window.matchMedia('(min-width: 901px) and (min-height: 640px)');
-let clickLock = 0;
-
-function trackRange() {
-  const top = path.getBoundingClientRect().top + window.scrollY;
-  return { top, length: path.offsetHeight - window.innerHeight };
-}
-function syncPin() {
-  path.classList.toggle('is-pinned', pinQuery.matches);
-  path.style.setProperty('--steps', rows.length);
-}
-function onScroll() {
-  if (!pinQuery.matches || performance.now() < clickLock) return;
-  const { top, length } = trackRange();
-  const progress = Math.min(Math.max((window.scrollY - top) / length, 0), 0.9999);
-  activate(rows[Math.floor(progress * rows.length)]);
-}
-
-rows.forEach((row, i) => {
-  row.querySelector('.row__head').addEventListener('click', () => {
-    activate(row);
-    if (!pinQuery.matches) return;
-    const { top, length } = trackRange();
-    clickLock = performance.now() + 900;
-    window.scrollTo({ top: top + ((i + 0.5) / rows.length) * length, behavior: reduce ? 'auto' : 'smooth' });
-  });
+// Só o clique (ou toque, ou Enter e Espaço) troca a linha e a imagem.
+// A seção não fica fixa, e nem a rolagem nem o mouse por cima mudam nada.
+rows.forEach((row) => {
+  row.querySelector('.row__head').addEventListener('click', () => activate(row));
 });
-
-let ticking = false;
-window.addEventListener('scroll', () => {
-  if (ticking) return;
-  ticking = true;
-  requestAnimationFrame(() => { ticking = false; onScroll(); });
-}, { passive: true });
-pinQuery.addEventListener('change', () => { syncPin(); onScroll(); });
-syncPin();
 placeFigure();
