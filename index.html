@@ -12,7 +12,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231c1c1c'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='44' fill='%23f1f1ef'%3Eas%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Imbue:wght@400&family=Albert+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Albert+Sans:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -65,7 +65,7 @@
 
         <div class="strips">
 
-          <a class="strip" href="#fluxo" data-kind="automacao">
+          <article class="strip" data-kind="automacao">
             <div class="strip__frames">
               <div class="frame" data-ui style="width:300px; --i:0">
                 <div class="mail__meta"><span class="k">De: Marta Lopes, agência</span><span>Cotação para 12 quartos em maio</span></div>
@@ -92,11 +92,11 @@
                 <span class="k">Enviado às 03:13</span>
               </div>
             </div>
-            <div class="strip__caption"><span class="name">E‑mails da Turim Hotels</span><span class="what">triagem e resposta</span><span class="year">2026</span></div>
+            <div class="strip__caption"><a class="name" href="#fluxo">E‑mails da Turim Hotels</a><span class="what">triagem e resposta</span><span class="year">2026</span><span class="strip__nav"><button type="button" data-dir="-1" aria-label="Voltar"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><button type="button" data-dir="1" aria-label="Avançar"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></span></div>
             <p class="strip__note">Lê cada e‑mail que chega aos hotéis, entende quem escreveu e o que a pessoa quer, e responde com os dados do hotel certo.</p>
-          </a>
+          </article>
 
-          <a class="strip" href="#avaliacoes" data-kind="automacao">
+          <article class="strip" data-kind="automacao">
             <div class="strip__frames">
               <div class="frame" data-ui style="width:300px; --i:0">
                 <div><svg class="stars" viewBox="0 0 92 16" width="92" height="16" role="img" aria-label="4 de 5 estrelas"><use href="#stars-4"/></svg>“Comida ótima, mas a fila no sábado demorou.”</div>
@@ -119,11 +119,11 @@
                 <div>Pontos fortes: comida, preço<br>Alerta: espera aos sábados</div>
               </div>
             </div>
-            <div class="strip__caption"><span class="name">Avaliações do Google</span><span class="what">30 comércios</span><span class="year">2026</span></div>
+            <div class="strip__caption"><a class="name" href="#avaliacoes">Avaliações do Google</a><span class="what">30 comércios</span><span class="year">2026</span><span class="strip__nav"><button type="button" data-dir="-1" aria-label="Voltar"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><button type="button" data-dir="1" aria-label="Avançar"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></span></div>
             <p class="strip__note">Responde cada avaliação no tom que o dono escolhe e mostra num painel o que os clientes elogiam e do que reclamam.</p>
-          </a>
+          </article>
 
-          <a class="strip" href="#trajetoria" data-kind="automacao">
+          <article class="strip" data-kind="automacao">
             <div class="strip__frames">
               <div class="frame" data-ui style="width:280px; --i:0">
                 <span class="k">Perfil analisado</span>
@@ -142,11 +142,11 @@
                 <div>antes: horas<br>agora: segundos</div>
               </div>
             </div>
-            <div class="strip__caption"><span class="name">Parcerias com influenciadores</span><span class="what">rede de hotéis</span><span class="year">2026</span></div>
+            <div class="strip__caption"><a class="name" href="#trajetoria">Parcerias com influenciadores</a><span class="what">rede de hotéis</span><span class="year">2026</span><span class="strip__nav"><button type="button" data-dir="-1" aria-label="Voltar"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><button type="button" data-dir="1" aria-label="Avançar"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></span></div>
             <p class="strip__note">Cruza os dados públicos de um perfil com o que o hotel procura e devolve um relatório de compatibilidade. Feito com n8n, Power Automate e IA.</p>
-          </a>
+          </article>
 
-          <a class="strip" href="https://github.com/sereno766/fly-in" data-kind="codigo">
+          <article class="strip" data-kind="codigo">
             <div class="strip__frames">
               <div class="frame" data-ui style="width:340px; --i:0">
 <pre><code>$ ./main.py maps/hard/02_capacity_hell.txt
@@ -169,11 +169,11 @@ D1-end D2-gate D3-hub_b</code></pre>
                 <span class="k">flake8 e mypy --strict</span>
               </div>
             </div>
-            <div class="strip__caption"><span class="name">fly-in</span><span class="what">rotas de drones</span><span class="year">2026</span></div>
+            <div class="strip__caption"><a class="name" href="https://github.com/sereno766/fly-in">fly-in</a><span class="what">rotas de drones</span><span class="year">2026</span><span class="strip__nav"><button type="button" data-dir="-1" aria-label="Voltar"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><button type="button" data-dir="1" aria-label="Avançar"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></span></div>
             <p class="strip__note">Python. Leva uma frota de drones de um ponto a outro de um grafo no menor número de turnos, respeitando a capacidade de cada zona. Sem biblioteca de grafos.</p>
-          </a>
+          </article>
 
-          <a class="strip" href="https://github.com/sereno766/A-Maze-ing" data-kind="codigo">
+          <article class="strip" data-kind="codigo">
             <div class="strip__frames">
               <div class="frame frame--img" style="--i:0">
                 <img src="assets/maze.png" width="674" height="818" alt="Labirinto gerado pelo A-Maze-ing, com o menor caminho marcado em azul" loading="lazy">
@@ -191,11 +191,11 @@ D1-end D2-gate D3-hub_b</code></pre>
                 <span class="k">O gerador virou um pacote à parte</span>
               </div>
             </div>
-            <div class="strip__caption"><span class="name">A-Maze-ing</span><span class="what">gerador de labirintos</span><span class="year">2026</span></div>
+            <div class="strip__caption"><a class="name" href="https://github.com/sereno766/A-Maze-ing">A-Maze-ing</a><span class="what">gerador de labirintos</span><span class="year">2026</span><span class="strip__nav"><button type="button" data-dir="-1" aria-label="Voltar"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><button type="button" data-dir="1" aria-label="Avançar"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></span></div>
             <p class="strip__note">Python, em dupla. Gera labirintos perfeitos ou com várias rotas, acha o menor caminho e grava tudo num formato hexadecimal compacto.</p>
-          </a>
+          </article>
 
-          <a class="strip" href="https://github.com/sereno766/push_swap42" data-kind="codigo">
+          <article class="strip" data-kind="codigo">
             <div class="strip__frames">
               <div class="frame" data-ui style="width:300px; --i:0">
 <pre><code>$ ./push_swap --bench --adaptive 2 1 3 6 5 8</code></pre>
@@ -210,9 +210,9 @@ D1-end D2-gate D3-hub_b</code></pre>
                 <div>O(n²), O(n√n), O(n log n)<br>e uma adaptativa</div>
               </div>
             </div>
-            <div class="strip__caption"><span class="name">push_swap</span><span class="what">ordenação em C</span><span class="year">2026</span></div>
+            <div class="strip__caption"><a class="name" href="https://github.com/sereno766/push_swap42">push_swap</a><span class="what">ordenação em C</span><span class="year">2026</span><span class="strip__nav"><button type="button" data-dir="-1" aria-label="Voltar"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><button type="button" data-dir="1" aria-label="Avançar"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></span></div>
             <p class="strip__note">C, em dupla. Ordena números com duas pilhas e um conjunto limitado de operações, escolhendo o algoritmo conforme a desordem da entrada.</p>
-          </a>
+          </article>
 
         </div>
       </div>
@@ -339,31 +339,31 @@ D1-end D2-gate D3-hub_b</code></pre>
         <h2 id="trajetoria-titulo">Trajetória</h2>
         <ul>
           <li class="row is-active" data-pic="0" data-caption="Sala de triagem de cartas, Wellington, c. 1900. Era assim que se separava mensagens antes de existir um classificador.">
-            <button class="row__head" type="button" aria-expanded="true" aria-controls="r0"><span class="row__name">MT29 Marketing Europe<span>Automação e integração de sistemas</span></span><span class="row__when">2026</span></button>
+            <button class="row__head" type="button" aria-expanded="true" aria-controls="r0"><span class="row__name">MT29 Marketing Europe<span>Automação e integração de sistemas</span></span><span class="row__when">2026</span><span class="row__icon" aria-hidden="true"></span></button>
             <p class="row__desc" id="r0">Remoto. Respostas automáticas de avaliações para 30 comércios, o fluxo de e‑mails da Turim Hotels, a análise de influenciadores, fluxos de leads e landing pages no WordPress. Também atendia os clientes e documentava cada projeto.</p>
           </li>
           <li class="row" data-pic="1" data-caption="Labirinto gerado pelo A-Maze-ing, um dos projetos da 42.">
-            <button class="row__head" type="button" aria-expanded="false" aria-controls="r1"><span class="row__name">42 São Paulo<span>Engenharia de Software</span></span><span class="row__when">2026–2028</span></button>
+            <button class="row__head" type="button" aria-expanded="false" aria-controls="r1"><span class="row__name">42 São Paulo<span>Engenharia de Software</span></span><span class="row__when">2026–2028</span><span class="row__icon" aria-hidden="true"></span></button>
             <p class="row__desc" id="r1">C e Python, aprendendo por projetos: libft, ft_printf, get_next_line, push_swap, Born2beroot, A-Maze-ing e fly-in. Passou na Piscina e na Missão Python.</p>
           </li>
           <li class="row" data-pic="1" data-caption="Labirinto gerado pelo A-Maze-ing, um dos projetos da 42.">
-            <button class="row__head" type="button" aria-expanded="false" aria-controls="r2"><span class="row__name">Senac<span>Análise e Desenvolvimento de Sistemas</span></span><span class="row__when">2026–2028</span></button>
+            <button class="row__head" type="button" aria-expanded="false" aria-controls="r2"><span class="row__name">Senac<span>Análise e Desenvolvimento de Sistemas</span></span><span class="row__when">2026–2028</span><span class="row__icon" aria-hidden="true"></span></button>
             <p class="row__desc" id="r2">Graduação tecnológica a distância, feita junto com a 42.</p>
           </li>
           <li class="row" data-pic="2" data-caption="Telégrafo com chave, relé e registrador, gravura de 1876. Dois sistemas trocando mensagens por um fio.">
-            <button class="row__head" type="button" aria-expanded="false" aria-controls="r3"><span class="row__name">Tribufu<span>Desenvolvedor</span></span><span class="row__when">2025</span></button>
+            <button class="row__head" type="button" aria-expanded="false" aria-controls="r3"><span class="row__name">Tribufu<span>Desenvolvedor</span></span><span class="row__when">2025</span><span class="row__icon" aria-hidden="true"></span></button>
             <p class="row__desc" id="r3">APIs REST em Python, integração entre back-end e front-end, logs e ferramentas de depuração, e banco de dados MySQL.</p>
           </li>
           <li class="row" data-pic="2" data-caption="Telégrafo com chave, relé e registrador, gravura de 1876. Dois sistemas trocando mensagens por um fio.">
-            <button class="row__head" type="button" aria-expanded="false" aria-controls="r4"><span class="row__name">Senac<span>Jovem Programador</span></span><span class="row__when">2025</span></button>
+            <button class="row__head" type="button" aria-expanded="false" aria-controls="r4"><span class="row__name">Senac<span>Jovem Programador</span></span><span class="row__when">2025</span><span class="row__icon" aria-hidden="true"></span></button>
             <p class="row__desc" id="r4">Curso de programação de fevereiro a dezembro de 2025, ao mesmo tempo que o trabalho na Tribufu.</p>
           </li>
           <li class="row" data-pic="3" data-caption="Praxinoscópio de Émile Reynaud, 1877. Uma sequência de desenhos que vira movimento.">
-            <button class="row__head" type="button" aria-expanded="false" aria-controls="r5"><span class="row__name">Cafundó Estúdio Criativo<span>Assistente de pré-produção</span></span><span class="row__when">2021–2022</span></button>
+            <button class="row__head" type="button" aria-expanded="false" aria-controls="r5"><span class="row__name">Cafundó Estúdio Criativo<span>Assistente de pré-produção</span></span><span class="row__when">2021–2022</span><span class="row__icon" aria-hidden="true"></span></button>
             <p class="row__desc" id="r5">Enquadramento de cenas, configuração de render e controle de minutagem no Toon Boom, com entregas remotas em prazos curtos.</p>
           </li>
           <li class="row" data-pic="4" data-caption="Praxinoscópio no Museu de Ciência e Tecnologia de Belgrado.">
-            <button class="row__head" type="button" aria-expanded="false" aria-controls="r6"><span class="row__name">Line art studios<span>Animador 2D</span></span><span class="row__when">2020–2021</span></button>
+            <button class="row__head" type="button" aria-expanded="false" aria-controls="r6"><span class="row__name">Line art studios<span>Animador 2D</span></span><span class="row__when">2020–2021</span><span class="row__icon" aria-hidden="true"></span></button>
             <p class="row__desc" id="r6">Animação de cenas de desenho animado no Toon Boom, em Belo Horizonte.</p>
           </li>
         </ul>

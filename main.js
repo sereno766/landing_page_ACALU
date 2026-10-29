@@ -20,7 +20,52 @@ filterButtons.forEach((btn) => btn.addEventListener('click', () => {
     strip.hidden = kind !== 'todos' && strip.dataset.kind !== kind;
     if (!strip.hidden) strip.classList.add('is-in');
   });
+  // As faixas que voltam a aparecer recalculam se precisam dos botões
+  window.dispatchEvent(new Event('resize'));
 }));
+
+// Faixas de trabalhos: rolam para os lados com os botões, com arraste do mouse e com o trackpad
+document.querySelectorAll('.strip').forEach((strip) => {
+  const track = strip.querySelector('.strip__frames');
+  const nav = strip.querySelector('.strip__nav');
+  const [prev, next] = nav.querySelectorAll('button');
+
+  const update = () => {
+    const max = track.scrollWidth - track.clientWidth;
+    nav.hidden = max <= 2;
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft >= max - 2;
+  };
+  const step = (dir) => {
+    track.scrollBy({ left: dir * track.clientWidth * 0.8, behavior: reduce ? 'auto' : 'smooth' });
+  };
+  prev.addEventListener('click', () => step(-1));
+  next.addEventListener('click', () => step(1));
+  track.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+
+  // Arraste com o mouse (no toque a rolagem nativa já funciona)
+  let startX = 0, startLeft = 0, moved = false, down = false;
+  track.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
+  });
+  window.addEventListener('pointermove', (e) => {
+    if (!down) return;
+    const dx = e.clientX - startX;
+    if (!moved && Math.abs(dx) > 4) { moved = true; track.classList.add('is-dragging'); }
+    if (moved) track.scrollLeft = startLeft - dx;
+  });
+  window.addEventListener('pointerup', () => {
+    if (!down) return;
+    down = false;
+    track.classList.remove('is-dragging');
+  });
+  // Um arraste não pode virar clique
+  track.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+  track.querySelectorAll('img').forEach((img) => { img.draggable = false; });
+});
 
 // O e‑mail escolhido percorre o fluxo
 const mails = {
@@ -137,6 +182,17 @@ const rows = [...document.querySelectorAll('.row')];
 const pics = document.querySelectorAll('.path__frame img');
 const caption = document.querySelector('[data-caption]');
 
+// No celular a imagem abre dentro da linha tocada; a partir de 901px volta para a coluna da esquerda
+const figure = document.querySelector('.path__picture');
+const figureHome = figure.parentElement;
+const wide = window.matchMedia('(min-width: 901px)');
+function placeFigure() {
+  const active = rows.find((r) => r.classList.contains('is-active')) || rows[0];
+  if (wide.matches) figureHome.prepend(figure);
+  else active.append(figure);
+}
+wide.addEventListener('change', placeFigure);
+
 function activate(row) {
   if (row.classList.contains('is-active')) return;
   rows.forEach((r) => {
@@ -146,18 +202,12 @@ function activate(row) {
   });
   pics.forEach((img) => img.classList.toggle('is-on', img.dataset.pic === row.dataset.pic));
   caption.textContent = row.dataset.caption;
+  placeFigure();
 }
 
-const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+// Um gatilho só: o toque ou o clique (Enter e Espaço no teclado).
+// Rolagem e mouse por cima trocavam a linha ao mesmo tempo e brigavam.
 rows.forEach((row) => {
-  const head = row.querySelector('.row__head');
-  head.addEventListener('click', () => activate(row));
-  head.addEventListener('focus', () => activate(row));
-  if (fine) head.addEventListener('mouseenter', () => activate(row));
+  row.querySelector('.row__head').addEventListener('click', () => activate(row));
 });
-
-// No scroll, a linha mais perto do meio da tela fica ativa
-const rowIO = new IntersectionObserver((entries) => {
-  for (const e of entries) if (e.isIntersecting) activate(e.target);
-}, { rootMargin: '-48% 0px -48% 0px' });
-rows.forEach((r) => rowIO.observe(r));
+placeFigure();
