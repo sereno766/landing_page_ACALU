@@ -205,9 +205,44 @@ function activate(row) {
   placeFigure();
 }
 
-// Um gatilho só: o toque ou o clique (Enter e Espaço no teclado).
-// Rolagem e mouse por cima trocavam a linha ao mesmo tempo e brigavam.
-rows.forEach((row) => {
-  row.querySelector('.row__head').addEventListener('click', () => activate(row));
+// Palco fixo no desktop: a seção fica parada e a rolagem escolhe a linha.
+// O clique leva a rolagem até a posição daquela linha, então os dois nunca discordam.
+// Passar o mouse por cima não troca nada. No celular vale só o toque.
+const path = document.querySelector('.path');
+const pinQuery = window.matchMedia('(min-width: 901px) and (min-height: 640px)');
+let clickLock = 0;
+
+function trackRange() {
+  const top = path.getBoundingClientRect().top + window.scrollY;
+  return { top, length: path.offsetHeight - window.innerHeight };
+}
+function syncPin() {
+  path.classList.toggle('is-pinned', pinQuery.matches);
+  path.style.setProperty('--steps', rows.length);
+}
+function onScroll() {
+  if (!pinQuery.matches || performance.now() < clickLock) return;
+  const { top, length } = trackRange();
+  const progress = Math.min(Math.max((window.scrollY - top) / length, 0), 0.9999);
+  activate(rows[Math.floor(progress * rows.length)]);
+}
+
+rows.forEach((row, i) => {
+  row.querySelector('.row__head').addEventListener('click', () => {
+    activate(row);
+    if (!pinQuery.matches) return;
+    const { top, length } = trackRange();
+    clickLock = performance.now() + 900;
+    window.scrollTo({ top: top + ((i + 0.5) / rows.length) * length, behavior: reduce ? 'auto' : 'smooth' });
+  });
 });
+
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => { ticking = false; onScroll(); });
+}, { passive: true });
+pinQuery.addEventListener('change', () => { syncPin(); onScroll(); });
+syncPin();
 placeFigure();

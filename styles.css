@@ -447,10 +447,6 @@ h1, h2, h3 { font-weight: 400; text-wrap: balance; }
 .row__icon::after { transform: rotate(90deg); }
 .row.is-active .row__icon::after { transform: rotate(0deg); }
 
-@media (hover: hover) and (pointer: fine) {
-  .row:not(.is-active) .row__head:hover { color: var(--ink); }
-}
-
 @media (min-width: 901px) {
   .path__picture { grid-column: 1 / span 5; position: sticky; top: 12vh; align-self: start; }
   .path__frame { aspect-ratio: 4 / 5; }
@@ -458,6 +454,18 @@ h1, h2, h3 { font-weight: 400; text-wrap: balance; }
   .path__list { grid-column: 7 / span 5; margin-top: 0; }
   .path__list h2 { margin-bottom: 48px; }
   .row__head { min-height: 58px; }
+}
+
+/* Palco fixo: a partir de 901px (e com altura suficiente) a seção fica parada na tela
+   enquanto se rola, e a rolagem troca a linha e a imagem. O main.js liga a classe
+   is-pinned e define --steps; sem script fica o layout normal, com clique. */
+@media (min-width: 901px) and (min-height: 640px) {
+  .path.is-pinned { height: calc(100svh + var(--steps, 7) * 42svh); padding-block: 0; }
+  .path.is-pinned .path__stage { position: sticky; top: 0; height: 100svh; align-items: center; align-content: center; }
+  .path.is-pinned .path__picture { position: static; align-self: center; }
+  .path.is-pinned .path__frame { width: min(100%, 72svh * 0.8); }
+  .path.is-pinned .path__list h2 { margin-bottom: 32px; }
+  .path.is-pinned .row__head { min-height: 52px; padding-block: 11px; }
 }
 
 /* ---------- Contato ---------- */
