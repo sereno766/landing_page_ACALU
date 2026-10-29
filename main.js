@@ -36,18 +36,51 @@ document.querySelectorAll('.strip').forEach((strip) => {
     prev.disabled = track.scrollLeft <= 2;
     next.disabled = track.scrollLeft >= max - 2;
   };
+  // Cada clique leva ao próximo cartão (ou ao anterior), com um deslize curto e suave.
+  // A rolagem nativa "smooth" pulava 80% da faixa de uma vez e brigava com o snap.
+  const starts = () => {
+    const base = track.getBoundingClientRect().left - track.scrollLeft;
+    return [...track.children].map((el) => el.getBoundingClientRect().left - base);
+  };
+  let anim = 0, aimed = null; // aimed: destino do deslize em andamento (cliques seguidos somam)
+  const glideTo = (target) => {
+    const max = track.scrollWidth - track.clientWidth;
+    target = Math.min(Math.max(target, 0), max);
+    cancelAnimationFrame(anim);
+    aimed = target;
+    if (reduce) { track.scrollLeft = target; aimed = null; return; }
+    const from = track.scrollLeft, dist = target - from;
+    const duration = Math.min(680, 420 + Math.abs(dist) * 0.45);
+    const t0 = performance.now();
+    track.style.scrollSnapType = 'none';
+    const tick = (now) => {
+      const p = Math.min((now - t0) / duration, 1);
+      const eased = 0.5 - 0.5 * Math.cos(Math.PI * p); // ease-in-out senoidal: começa e assenta macio
+      track.scrollLeft = from + dist * eased;
+      if (p < 1) anim = requestAnimationFrame(tick);
+      else { track.style.scrollSnapType = ''; aimed = null; }
+    };
+    anim = requestAnimationFrame(tick);
+  };
+  const stopGlide = () => { cancelAnimationFrame(anim); aimed = null; track.style.scrollSnapType = ''; };
   const step = (dir) => {
-    track.scrollBy({ left: dir * track.clientWidth * 0.8, behavior: reduce ? 'auto' : 'smooth' });
+    const x = aimed ?? track.scrollLeft, list = starts();
+    const target = dir > 0
+      ? list.find((s) => s > x + 4)
+      : [...list].reverse().find((s) => s < x - 4);
+    glideTo(target ?? (dir > 0 ? Infinity : 0));
   };
   prev.addEventListener('click', () => step(-1));
   next.addEventListener('click', () => step(1));
   track.addEventListener('scroll', update, { passive: true });
+  track.addEventListener('wheel', stopGlide, { passive: true }); // trackpad assume o controle
   window.addEventListener('resize', update);
   update();
 
   // Arraste com o mouse (no toque a rolagem nativa já funciona)
   let startX = 0, startLeft = 0, moved = false, down = false;
   track.addEventListener('pointerdown', (e) => {
+    stopGlide();
     if (e.pointerType !== 'mouse' || e.button !== 0) return;
     down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
   });
