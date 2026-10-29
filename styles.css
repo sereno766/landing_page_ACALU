@@ -520,3 +520,45 @@ h1, h2, h3 { font-weight: 400; text-wrap: balance; }
 @media (min-width: 761px) and (max-width: 1100px) {
   .contact { min-height: 72svh; }
 }
+
+/* ---------- Correções da revisão visual ---------- */
+
+/* Gravura de fundo branco: invertida para entrar na sala escura */
+.photo--engraving { filter: invert(1) grayscale(1) brightness(0.82) contrast(1.1); }
+
+/* A filmagem tem uma linha clara na borda de cima: corta com um leve zoom */
+.flow__aside video { transform: scale(1.05); }
+
+/* A coluna dos trabalhos fica estreita demais abaixo de 1100px: o título passa para cima */
+@media (max-width: 1100px) {
+  .work__layout { grid-template-columns: minmax(0, 1fr); }
+  .work__rail { position: static; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+  .filters { margin-top: 0; display: flex; gap: 14px; }
+}
+
+/* As entradas eram lentas e deixavam buracos enquanto se rolava */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] { transform: translateY(16px); transition: opacity 500ms var(--ease-out), transform 650ms var(--ease-expo); transition-delay: calc(var(--i, 0) * 50ms); }
+  .js .strip__frames > * { transform: translateX(16px); transition: opacity 450ms var(--ease-out), transform 600ms var(--ease-expo); transition-delay: calc(var(--i, 0) * 45ms); }
+}
+
+/* O e-mail do contato vai de margem a margem */
+.contact__mail { font-size: clamp(2.6rem, 13.2vw, 15.5rem); }
+@media (max-width: 760px) {
+  .contact__mail { font-size: 21vw; line-height: 0.9; }
+}
+
+.only-phone { display: none; }
+@media (max-width: 760px) { .only-phone { display: inline; } }
+
+/* O quadro das telefonistas fica por baixo até o vídeo chegar ao trecho certo */
+.flow__aside .film__poster { transform: scale(1.05); }
+.flow__aside video { opacity: 0; transition: opacity 400ms ease; }
+.flow__aside video.is-ready { opacity: 1; }
+
+/* A gravura invertida perde o fundo preto e fica só com os traços claros */
+.photo--engraving { mix-blend-mode: screen; }
+
+@media (max-width: 760px) {
+  .contact__mail { margin-top: 48px; }
+}

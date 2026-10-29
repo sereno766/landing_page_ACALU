@@ -8,7 +8,7 @@ const io = new IntersectionObserver((entries) => {
     e.target.classList.add('is-in');
     io.unobserve(e.target);
   }
-}, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+}, { rootMargin: '0px 0px 15% 0px', threshold: 0 });
 document.querySelectorAll('[data-reveal], .strip').forEach((el) => io.observe(el));
 
 // Filtros dos trabalhos
@@ -22,10 +22,10 @@ filterButtons.forEach((btn) => btn.addEventListener('click', () => {
   });
 }));
 
-// O e-mail escolhido percorre o fluxo
+// O e‑mail escolhido percorre o fluxo
 const mails = {
   cotacao: {
-    say1: 'Primeiro, chega um e-mail.',
+    say1: 'Primeiro, chega um e‑mail.',
     call1: `<div class="mail__meta"><span><b>Marta Lopes</b>, Viagens Exemplo</span><span>Recebido às 03:12</span><span>Assunto: Cotação para 12 quartos em maio</span></div>
       <div class="mail__body"><p>Bom dia. Precisamos de 12 quartos duplos no Hotel Exemplo Algarve, de 14 a 17 de maio, para um grupo de clientes. Podem enviar a disponibilidade e os valores?</p></div>`,
     resp1: tags([['Remetente', 'agência'], ['Intenção', 'pedido de cotação'], ['Hotel', 'Hotel Exemplo Algarve']]),
@@ -34,13 +34,13 @@ const mails = {
     resp2: tags([['Disponível', '12 duplos nas 3 noites'], ['Da base do hotel', 'regras para grupos']]),
     say3: 'Por fim, a resposta sai sozinha.',
     resp3: `<div class="mail__meta"><span>Para: <b>Marta Lopes</b></span><span>Assunto: Re: Cotação para 12 quartos em maio</span></div>
-      <div class="mail__body"><p>Olá, Marta. Temos 12 quartos duplos disponíveis no Hotel Exemplo Algarve de 14 a 17 de maio. Seguem os valores para o grupo, com as condições de reserva.</p><p>Se as datas mudarem, responda a este e-mail e refazemos a cotação.</p></div>
+      <div class="mail__body"><p>Olá, Marta. Temos 12 quartos duplos disponíveis no Hotel Exemplo Algarve de 14 a 17 de maio. Seguem os valores para o grupo, com as condições de reserva.</p><p>Se as datas mudarem, responda a este e‑mail e refazemos a cotação.</p></div>
       <p class="mail__foot">Enviado às 03:13, sem ninguém precisar revisar.</p>`,
     path: ['webhook', 'remetente', 'pre', 'intencao', 'cotacao', 'juntar', 'rascunho', 'disponibilidade', 'enviar'],
     edges: ['webhook-remetente', 'remetente-pre', 'pre-intencao', 'intencao-cotacao', 'cotacao-juntar', 'juntar-rascunho', 'rascunho-disponibilidade', 'rascunho-enviar'],
   },
   info: {
-    say1: 'Primeiro, chega um e-mail.',
+    say1: 'Primeiro, chega um e‑mail.',
     call1: `<div class="mail__meta"><span><b>Rui Fernandes</b>, hóspede</span><span>Recebido às 23:47</span><span>Assunto: Estacionamento</span></div>
       <div class="mail__body"><p>Olá. Chego ao Hotel Exemplo Porto no sábado à noite. O hotel tem estacionamento? Posso deixar o carro até domingo à tarde?</p></div>`,
     resp1: tags([['Remetente', 'cliente individual'], ['Intenção', 'pedido de informação'], ['Hotel', 'Hotel Exemplo Porto']]),
@@ -55,16 +55,16 @@ const mails = {
     edges: ['webhook-remetente', 'remetente-pre', 'pre-intencao', 'intencao-base', 'base-juntar', 'juntar-rascunho', 'rascunho-enviar'],
   },
   corp: {
-    say1: 'Primeiro, chega um e-mail.',
+    say1: 'Primeiro, chega um e‑mail.',
     call1: `<div class="mail__meta"><span><b>Ana Ribeiro</b>, Empresa Exemplo</span><span>Recebido às 08:05</span><span>Assunto: Encontro de equipa em junho</span></div>
       <div class="mail__body"><p>Somos 40 pessoas e queremos fazer um encontro de dois dias em junho, com sala de reuniões e jantar no primeiro dia. Que hotéis do grupo conseguem receber-nos?</p></div>`,
     resp1: tags([['Remetente', 'corporativo'], ['Intenção', 'evento com alojamento'], ['Rota', 'resumo para a equipe']]),
     say2: 'Depois, resume o pedido para a equipe comercial.',
-    call2: '<code>resumir(e-mail, campos: pessoas, datas, espaços, refeições, pergunta)</code>',
+    call2: '<code>resumir(e‑mail, campos: pessoas, datas, espaços, refeições, pergunta)</code>',
     resp2: tags([['Pessoas', '40'], ['Quando', '2 dias em junho'], ['Precisa de', 'sala de reuniões e jantar no 1º dia']]),
     say3: 'Por fim, o resumo chega à equipe.',
     resp3: `<div class="mail__meta"><span>Para: <b>equipe comercial</b></span><span>Assunto: Pedido corporativo, Empresa Exemplo</span></div>
-      <div class="mail__body"><p>Ana Ribeiro, da Empresa Exemplo, quer um encontro de 40 pessoas por dois dias em junho, com sala de reuniões e jantar no primeiro dia. Pergunta quais hotéis do grupo conseguem receber o grupo.</p><p>E-mail original em anexo.</p></div>
+      <div class="mail__body"><p>Ana Ribeiro, da Empresa Exemplo, quer um encontro de 40 pessoas por dois dias em junho, com sala de reuniões e jantar no primeiro dia. Pergunta quais hotéis do grupo conseguem receber o grupo.</p><p>E‑mail original em anexo.</p></div>
       <p class="mail__foot">Encaminhado às 08:05, um minuto depois de chegar.</p>`,
     path: ['webhook', 'remetente', 'int_corp', 'resumo', 'encaminhar'],
     edges: ['webhook-remetente', 'remetente-int_corp', 'int_corp-resumo', 'resumo-encaminhar'],
@@ -109,8 +109,20 @@ mailButtons.forEach((btn) => btn.addEventListener('click', () => {
 }));
 lightPath(mails.cotacao);
 
-// A filmagem só roda enquanto está na tela, e nunca com movimento reduzido
+// A filmagem só roda enquanto está na tela, e nunca com movimento reduzido.
+// O cinejornal tem 1:29; as telefonistas aparecem só entre 31 s e 46 s, então o loop fica nesse trecho.
 const film = document.querySelector('.flow__aside video');
+const LOOP_START = 31, LOOP_END = 46;
+if (film) {
+  film.addEventListener('loadedmetadata', () => { film.currentTime = LOOP_START; });
+  film.addEventListener('timeupdate', () => {
+    const inLoop = film.currentTime >= LOOP_START - 0.5 && film.currentTime < LOOP_END;
+    film.classList.toggle('is-ready', inLoop);
+    if (!inLoop) film.currentTime = LOOP_START;
+  });
+  // Se o navegador parar no fim do arquivo, volta ao começo do trecho
+  film.addEventListener('ended', () => { film.currentTime = LOOP_START; if (!reduce) film.play().catch(() => {}); });
+}
 if (film && !reduce) {
   new IntersectionObserver((entries) => {
     for (const e of entries) {
